@@ -1,23 +1,26 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { View, Text } from 'react-native';
+import AbordagensListScreen from '../../features/abordagens/screens/AbordagensListScreen';
+import { useAuthStore } from '../../features/auth/store/useAuthStore';
+import { TouchableOpacity, Text } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home (usuário logado)</Text>
-    </View>
-  );
-}
-
 export default function MainStack() {
+  const logout = useAuthStore((state) => state.logout);
+
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{ headerShown: false }}
+        name="AbordagensList"
+        component={AbordagensListScreen}
+        options={{
+          title: 'Abordagens',
+          headerRight: () => (
+            <TouchableOpacity onPress={logout} style={{ marginRight: 12 }}>
+              <Text style={{ color: '#ef4444', fontWeight: '600' }}>Sair</Text>
+            </TouchableOpacity>
+          ),
+        }}
       />
     </Stack.Navigator>
   );
