@@ -5,8 +5,10 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
+  Image,
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import * as ImagePicker from 'expo-image-picker';
 import { styles } from './NovaAbordagemScreen.styles';
 import { useAbordagensStore } from '../store/useAbordagensStore';
 import type { Abordagem } from '../types';
@@ -21,7 +23,34 @@ type Props = NativeStackScreenProps<MainStackParamList, 'NovaAbordagem'>;
 export default function NovaAbordagemScreen({ navigation }: Props) {
   const [placa, setPlaca] = useState('');
   const [observacoes, setObservacoes] = useState('');
+  const [fotoUri, setFotoUri] = useState<string | undefined>(undefined);
+
   const addAbordagem = useAbordagensStore((state) => state.addAbordagem);
+
+  async function handleSelecionarFoto() {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (status !== 'granted') {
+      Alert.alert(
+        'Permissão necessária',
+        'Precisamos de acesso à galeria para selecionar a foto do veículo.'
+      );
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 0.7,
+    });
+
+    if (result.canceled) {
+      return;
+    }
+
+    const asset = result.assets[0];
+    setFotoUri(asset.uri);
+  }
 
   function handleSalvar() {
     if (!placa.trim()) {
@@ -34,7 +63,8 @@ export default function NovaAbordagemScreen({ navigation }: Props) {
       placa: placa.trim(),
       observacoes: observacoes.trim() || undefined,
       criadaEm: new Date().toISOString(),
-      // latitude / longitude / foto serão adicionados depois
+      fotoUri,
+      // latitude / longitude serão preenchidos em outra etapa
     };
 
     addAbordagem(novaAbordagem);
@@ -66,6 +96,22 @@ export default function NovaAbordagemScreen({ navigation }: Props) {
         value={observacoes}
         onChangeText={setObservacoes}
       />
+
+      <Text style={styles.fotoLabel}>Foto do veículo</Text>
+      <TouchableOpacity
+        style={styles.buttonSecondary}
+        onPress={handleSelecionarFoto}
+      >
+        <Text style={styles.buttonTextSecondary}>
+          Selecionar foto na galeria
+        </Text>
+      </TouchableOpacity>
+
+      {fotoUri ? (
+        <View style={styles.fotoPreview}>
+          <Image source={{ uri: fotoUri }} style={styles.fotoImage} />
+        </View>
+      ) : null}
 
       <TouchableOpacity style={styles.buttonPrimary} onPress={handleSalvar}>
         <Text style={styles.buttonTextPrimary}>Salvar abordagem</Text>

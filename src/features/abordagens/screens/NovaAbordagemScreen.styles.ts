@@ -22,6 +22,22 @@ export const styles = StyleSheet.create({
     minHeight: 80,
     textAlignVertical: 'top',
   },
+  fotoLabel: {
+    fontSize: 14,
+    fontWeight: '500',
+    marginBottom: 8,
+    marginTop: 4,
+  },
+  fotoPreview: {
+    marginTop: 8,
+    marginBottom: 16,
+    alignItems: 'center',
+  },
+  fotoImage: {
+    width: 200,
+    height: 140,
+    borderRadius: 12,
+  },
   buttonPrimary: {
     backgroundColor: '#2563eb',
     paddingVertical: 12,
@@ -35,6 +51,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 8,
     alignItems: 'center',
+    marginBottom: 8,
   },
   buttonTextPrimary: { color: '#fff', fontWeight: '600' },
   buttonTextSecondary: { color: '#374151', fontWeight: '500' },
