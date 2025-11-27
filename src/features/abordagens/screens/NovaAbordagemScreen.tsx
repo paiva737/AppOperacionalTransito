@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as ImagePicker from 'expo-image-picker';
+import * as Location from 'expo-location';
 import { styles } from './NovaAbordagemScreen.styles';
 import { useAbordagensStore } from '../store/useAbordagensStore';
 import type { Abordagem } from '../types';
@@ -24,6 +25,7 @@ export default function NovaAbordagemScreen({ navigation }: Props) {
   const [placa, setPlaca] = useState('');
   const [observacoes, setObservacoes] = useState('');
   const [fotoUri, setFotoUri] = useState<string | undefined>(undefined);
+  const [isSaving, setIsSaving] = useState(false);
 
   const addAbordagem = useAbordagensStore((state) => state.addAbordagem);
 
@@ -52,23 +54,66 @@ export default function NovaAbordagemScreen({ navigation }: Props) {
     setFotoUri(asset.uri);
   }
 
-  function handleSalvar() {
+  async function handleSalvar() {
     if (!placa.trim()) {
       Alert.alert('Atenção', 'Informe a placa do veículo.');
       return;
     }
 
-    const novaAbordagem: Abordagem = {
-      id: Date.now().toString(),
-      placa: placa.trim(),
-      observacoes: observacoes.trim() || undefined,
-      criadaEm: new Date().toISOString(),
-      fotoUri,
-      // latitude / longitude serão preenchidos em outra etapa
-    };
+    try {
+      setIsSaving(true);
 
-    addAbordagem(novaAbordagem);
-    navigation.goBack();
+      let latitude: number | undefined;
+      let longitude: number | undefined;
+
+      const { status } = await Location.requestForegroundPermissionsAsync();
+
+      if (status === 'granted') {
+        const location = await Location.getCurrentPositionAsync({
+          accuracy: Location.Accuracy.Balanced,
+        });
+
+        latitude = location.coords.latitude;
+        longitude = location.coords.longitude;
+      } else {
+        Alert.alert(
+          'Localização não permitida',
+          'A abordagem será salva sem coordenadas de localização.'
+        );
+      }
+
+      const novaAbordagem: Abordagem = {
+        id: Date.now().toString(),
+        placa: placa.trim(),
+        observacoes: observacoes.trim() || undefined,
+        criadaEm: new Date().toISOString(),
+        fotoUri,
+        latitude,
+        longitude,
+      };
+
+      addAbordagem(novaAbordagem);
+      navigation.goBack();
+    } catch (error) {
+      console.error(error);
+      Alert.alert(
+        'Erro',
+        'Ocorreu um erro ao tentar obter a localização. A abordagem será salva sem coordenadas.'
+      );
+
+      const novaAbordagem: Abordagem = {
+        id: Date.now().toString(),
+        placa: placa.trim(),
+        observacoes: observacoes.trim() || undefined,
+        criadaEm: new Date().toISOString(),
+        fotoUri,
+      };
+
+      addAbordagem(novaAbordagem);
+      navigation.goBack();
+    } finally {
+      setIsSaving(false);
+    }
   }
 
   function handleCancelar() {
@@ -113,8 +158,14 @@ export default function NovaAbordagemScreen({ navigation }: Props) {
         </View>
       ) : null}
 
-      <TouchableOpacity style={styles.buttonPrimary} onPress={handleSalvar}>
-        <Text style={styles.buttonTextPrimary}>Salvar abordagem</Text>
+      <TouchableOpacity
+        style={styles.buttonPrimary}
+        onPress={handleSalvar}
+        disabled={isSaving}
+      >
+        <Text style={styles.buttonTextPrimary}>
+          {isSaving ? 'Salvando...' : 'Salvar abordagem'}
+        </Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.buttonSecondary} onPress={handleCancelar}>
