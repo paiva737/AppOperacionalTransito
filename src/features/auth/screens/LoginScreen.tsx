@@ -1,5 +1,6 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { useAuthStore } from '../store/useAuthStore';
+import { styles } from './LoginScreen.styles';
 
 export default function LoginScreen() {
   const login = useAuthStore((state) => state.login);
@@ -14,10 +15,3 @@ export default function LoginScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  title: { fontSize: 22, marginBottom: 20 },
-  button: { backgroundColor: '#007bff', padding: 14, borderRadius: 8 },
-  buttonText: { color: '#fff', fontWeight: 'bold' },
-});
