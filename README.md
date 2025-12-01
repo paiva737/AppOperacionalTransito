@@ -85,7 +85,7 @@ ________________________________________
 
 🏗 Estrutura do Projeto
 
-   src/
+    src/
        app/
        navigation/
        AppNavigator.tsx
