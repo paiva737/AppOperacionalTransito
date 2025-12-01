@@ -84,31 +84,32 @@ Trackers continuam funcionando após reabertura.
 ________________________________________
 
 🏗 Estrutura do Projeto
-src/
-  app/
-    navigation/
-      AppNavigator.tsx
-      AuthStack.tsx
-      MainStack.tsx
 
-  features/
-    auth/
-      store/
-      screens/
+   src/
+       app/
+       navigation/
+       AppNavigator.tsx
+       AuthStack.tsx
+       MainStack.tsx
+
+    features/
+      auth/
+       store/
+        screens/
 
     abordagens/
-      screens/
-      store/
-      components/
+       screens/
+       store/
+       components/
 
     tracking/
       store/
-      services/
-      components/
+       services/
+       components/
 
-  shared/
-    components/
-    styles/
+    shared/
+       components/
+       styles/
 
 
 ________________________________________
