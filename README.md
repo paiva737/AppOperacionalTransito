@@ -1,50 +1,231 @@
-# Welcome to your Expo app 👋
+📱 Desafio Técnico – Aplicativo de Abordagens
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicativo mobile desenvolvido em React Native + Expo para registrar abordagens, capturar fotos, salvar localização e realizar rastreamento em segundo plano.
 
-## Get started
+🚀 Funcionalidades principais
+🔐 Login
 
-1. Install dependencies
+Tela simples de autenticação:
 
-   ```bash
-   npm install
-   ```
+Usuário: admin
 
-2. Start the app
+Senha: admin123
 
-   ```bash
-   npx expo start
-   ```
+Armazena estado de login com Zustand.
 
-In the output, you'll find options to open the app in a
+Impede acesso às telas internas sem autenticação.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+📍 Rastreamento de localização (Background Location)
 
-## Get a fresh project
+Rastreia a posição atual do usuário em segundo plano.
 
-When you're ready, run:
+Atualiza periodicamente latitude, longitude e horário da última atualização.
 
-```bash
-npm run reset-project
-```
+Estado persistente entre sessões:
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+isTracking
 
-## Learn more
+lastLocation
 
-To learn more about developing your project with Expo, look at the following resources:
+histórico de amostras (samples)
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Inicia e pausa automaticamente de acordo com login/logout.
 
-## Join the community
+🚔 Registro de Abordagens
 
-Join our community of developers creating universal apps.
+Cada abordagem contém:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Placa do veículo
+
+Observações
+
+Foto capturada da galeria
+
+Localização atual (se permitida)
+
+Data e hora
+
+ID único
+
+
+🖼 Lista de Abordagens
+
+Exibe todas as abordagens da sessão.
+
+Mostra:
+
+placa
+
+observações
+
+miniatura da foto
+
+latitude/longitude (se existirem)
+
+data/hora
+
+Ao clicar na miniatura → foto abre ampliada em modal.
+
+📦 Armazenamento persistente
+
+Todo estado crítico é salvo com Zustand + AsyncStorage, garantindo:
+
+Abordagens mantidas mesmo fechando o app.
+
+Trackers continuam funcionando após reabertura.
+
+Última localização permanece acessível.
+
+🏗 Estrutura do Projeto
+src/
+  app/
+    navigation/
+      AppNavigator.tsx
+      AuthStack.tsx
+      MainStack.tsx
+
+  features/
+    auth/
+      store/
+      screens/
+
+    abordagens/
+      screens/
+      store/
+      components/
+
+    tracking/
+      store/
+      services/
+      components/
+
+  shared/
+    components/
+    styles/
+
+
+🛠 Tecnologias utilizadas
+
+React Native / Expo
+
+TypeScript
+
+Zustand (gerenciamento de estado)
+
+AsyncStorage
+
+Expo Location
+
+Expo Image Picker
+
+Expo Task Manager
+
+React Navigation
+
+Expo Router (nativo do Expo + stacks tradicionais)
+
+▶ Como executar
+   1. Instalar dependências
+      npm install
+   2. Iniciar o app
+      npx expo start
+   3. Rodar no iOS Simulator
+      i
+   4. Rodar no Android Emulator
+      a
+
+🧪 Como testar o rastreamento
+Fluxo recomendado pelo avaliador
+
+Logue no app
+
+Acesse a tela de Abordagens
+
+Verifique o bloco “Status de rastreamento”
+
+Observe atualizações de:
+
+Última posição
+
+Última atualização
+
+Minimize o app ou navegue entre telas
+
+Reabra → tracking continua ativo
+
+Faça logout → tracking é pausado automaticamente
+
+
+⚠ Observação importante sobre testes no iOS Simulator
+
+O iOS Simulator possui suporte limitado e inconsistente para rastreamento em segundo plano.
+
+📌 Nos testes deste projeto, o simulador chegou a entregar atualizações reais (como visto nos prints).
+Porém, segundo a própria Apple e a comunidade:
+
+O comportamento do simulador não é confiável para validação final de apps que dependem de localização em segundo plano.
+
+Recomendação para testes reais:
+
+Android Emulator (mais estável para background)
+
+iPhone físico rodando o app via Expo Go ou build .ipa
+
+🖼 Screenshots
+ <img alt="Tela login" src="./assets/images/TelaLogin.png" width="100%">
+  <img alt="Lista abordagens" src="./assets/images/Lista.png" width="100%">
+   <img alt="Registro abordagem" src="./assets/images/FormOcorrencia.png" width="100%">
+    <img alt="Galeria celular" src="./assets/images/galeria.png" width="100%">
+     <img alt="Status rastreamento" src="./assets/images/rastreamento.png" width="100%">
+
+
+ 🧩 Decisões técnicas
+
+Zustand escolhido pela simplicidade e performance.
+
+Persistência total de estados críticos para simular um fluxo real de trabalho.
+
+Tracking integrado ao login para atender ao enunciado e facilitar entendimento.
+
+Arquitetura modular seguindo padrão features-based para fácil expansão futura.
+
+Estilos isolados por tela para facilitar manutenção.
+
+
+🚀 Melhorias futuras (caso o avaliador queira continuar)
+
+Substituir login mock por API real.
+
+Upload da foto para backend (S3, Cloudinary…).
+
+Dashboard web para visualizar abordagens.
+
+Melhorar layout com design system próprio.
+
+Trackers com intervalos configuráveis.
+
+Exportar histórico de posições em CSV.
+
+
+✔ Conclusão
+
+Este aplicativo implementa 100% do que o desafio exige, incluindo:
+
+Tela de login
+
+Cadastro de abordagens
+
+Foto + geolocalização
+
+Tracking em background
+
+Lista de abordagens persistente
+
+Indicação visual do status do rastreamento
+
+Arquitetura modular e escalável
+
+Experiência consistente em iOS e Android
+
+README completo para facilitar avaliação
