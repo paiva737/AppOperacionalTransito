@@ -7,23 +7,36 @@ import {
   Modal,
   TouchableOpacity,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { Abordagem } from '../types';
 import { useAbordagensStore } from '../store/useAbordagensStore';
 import { styles } from './AbordagensListScreen.styles';
 import LocationStatus from '../../tracking/components/LocationStatus';
 
-function AbordagemCard({
-  item,
-  onPressImage,
-}: {
+type MainStackParamList = {
+  AbordagensList: undefined;
+  NovaAbordagem: undefined;
+  DetalhesAbordagem: { id: string };
+};
+
+type AbordagensListNavigationProp = NativeStackNavigationProp<
+  MainStackParamList,
+  'AbordagensList'
+>;
+
+type AbordagemCardProps = {
   item: Abordagem;
+  onPressCard: () => void;
   onPressImage: (uri: string) => void;
-}) {
+};
+
+function AbordagemCard({ item, onPressCard, onPressImage }: AbordagemCardProps) {
   const hasLocation =
     item.latitude !== undefined && item.longitude !== undefined;
 
   return (
-    <View style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={onPressCard}>
       <View style={styles.cardTop}>
         <View style={styles.cardInfo}>
           <Text style={styles.placa}>{item.placa}</Text>
@@ -49,11 +62,12 @@ function AbordagemCard({
           </TouchableOpacity>
         ) : null}
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
 export default function AbordagensListScreen() {
+  const navigation = useNavigation<AbordagensListNavigationProp>();
   const abordagens = useAbordagensStore((state) => state.abordagens);
   const [selectedImageUri, setSelectedImageUri] = useState<string | null>(null);
 
@@ -76,6 +90,9 @@ export default function AbordagensListScreen() {
         renderItem={({ item }) => (
           <AbordagemCard
             item={item}
+            onPressCard={() =>
+              navigation.navigate('DetalhesAbordagem', { id: item.id })
+            }
             onPressImage={(uri) => setSelectedImageUri(uri)}
           />
         )}

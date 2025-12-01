@@ -1,12 +1,17 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { TouchableOpacity, Text, View } from 'react-native';
+
 import AbordagensListScreen from '../../features/abordagens/screens/AbordagensListScreen';
 import NovaAbordagemScreen from '../../features/abordagens/screens/NovaAbordagemScreen';
+import DetalhesAbordagemScreen from '../../features/abordagens/screens/DetalhesAbordagemScreen';
+import EditarAbordagemScreen from '../../features/abordagens/screens/EditarAbordagemScreen';
 import { useAuthStore } from '../../features/auth/store/useAuthStore';
-import { TouchableOpacity, Text, View } from 'react-native';
 
 type MainStackParamList = {
   AbordagensList: undefined;
   NovaAbordagem: undefined;
+  DetalhesAbordagem: { id: string };
+  EditarAbordagem: { id: string };
 };
 
 const Stack = createNativeStackNavigator<MainStackParamList>();
@@ -39,6 +44,18 @@ export default function MainStack() {
         name="NovaAbordagem"
         component={NovaAbordagemScreen}
         options={{ title: 'Nova abordagem' }}
+      />
+
+      <Stack.Screen
+        name="DetalhesAbordagem"
+        component={DetalhesAbordagemScreen}
+        options={{ title: 'Detalhes da abordagem' }}
+      />
+
+      <Stack.Screen
+        name="EditarAbordagem"
+        component={EditarAbordagemScreen}
+        options={{ title: 'Editar abordagem' }}
       />
     </Stack.Navigator>
   );
