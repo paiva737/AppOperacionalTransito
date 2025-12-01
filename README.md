@@ -239,7 +239,6 @@ ________________________________________
 <img alt="Tela login" src="./assets/images/TelaLogin.png" width="100%"> 
 <img alt="Lista abordagens" src="./assets/images/Lista.png" width="100%">
  <img alt="Registro abordagem" src="./assets/images/FormOcorrencia.png" width="100%"> <img alt="Galeria celular" src="./assets/images/galeria.png" width="100%"> 
- <img alt="Status rastreamento" src="./assets/images/rastreamento.png" width="100%">
 <img alt="Ocorrências" src="./assets/images/ocorrencia.png" width="100%"> 
 
 ________________________________________
