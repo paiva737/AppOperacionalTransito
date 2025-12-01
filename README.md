@@ -132,7 +132,8 @@ Tracking permanece ativo após reabertura
 Estado global consistente e resiliente
 ________________________________________
 🏗 Estrutura do Projeto
-    src/
+
+     src/
        app/
        navigation/
        AppNavigator.tsx
@@ -183,17 +184,21 @@ ________________________________________
 ▶ Como executar
 
 Instalar dependências
+
  npm install
 
 
 Iniciar o app
+
  npx expo start
 
 
 Rodar no iOS Simulator
+
  Pressione i
 
 Rodar no Android Emulator
+
  Pressione a
 ________________________________________
 🧪 Como testar o rastreamento
@@ -223,8 +228,6 @@ ________________________________________
 ⚠ Importante sobre testes no iOS Simulator
 
 O iOS Simulator possui suporte limitado e inconsistente para tracking em background.
-________________________________________
-Observações:
 
 Em nossos testes, ele funcionou — mas isso não é garantido.
 
@@ -233,7 +236,12 @@ Android Emulator é mais estável para validação real.
 Em iPhone físico, o comportamento é correto via Expo Go / build IPA.
 ________________________________________
 🖼 Screenshots
-<img alt="Tela login" src="./assets/images/TelaLogin.png" width="100%"> <img alt="Lista abordagens" src="./assets/images/Lista.png" width="100%"> <img alt="Registro abordagem" src="./assets/images/FormOcorrencia.png" width="100%"> <img alt="Galeria celular" src="./assets/images/galeria.png" width="100%"> <img alt="Status rastreamento" src="./assets/images/rastreamento.png" width="100%">
+<img alt="Tela login" src="./assets/images/TelaLogin.png" width="100%"> 
+<img alt="Lista abordagens" src="./assets/images/Lista.png" width="100%">
+ <img alt="Registro abordagem" src="./assets/images/FormOcorrencia.png" width="100%"> <img alt="Galeria celular" src="./assets/images/galeria.png" width="100%"> 
+ <img alt="Status rastreamento" src="./assets/images/rastreamento.png" width="100%">
+<img alt="Ocorrências" src="./assets/images/ocorrencia.png" width="100%"> 
+
 ________________________________________
 🧩 Decisões técnicas
 
