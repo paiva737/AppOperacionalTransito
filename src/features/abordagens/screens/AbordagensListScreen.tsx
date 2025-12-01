@@ -5,16 +5,25 @@ import { styles } from './AbordagensListScreen.styles';
 import LocationStatus from '../../tracking/components/LocationStatus';
 
 function AbordagemCard({ item }: { item: Abordagem }) {
+  const hasLocation =
+    item.latitude !== undefined && item.longitude !== undefined;
+
   return (
     <View style={styles.card}>
       <Text style={styles.placa}>{item.placa}</Text>
+
       {item.observacoes ? (
         <Text style={styles.observacoes}>{item.observacoes}</Text>
       ) : null}
+
       <Text style={styles.meta}>
-        {item.latitude !== undefined && item.longitude !== undefined
-          ? `${item.latitude.toFixed(4)}, ${item.longitude.toFixed(4)}`
+        {hasLocation
+          ? `${item.latitude?.toFixed(4)}, ${item.longitude?.toFixed(4)}`
           : 'Sem localização registrada'}
+      </Text>
+
+      <Text style={styles.metaTime}>
+        {new Date(item.criadaEm).toLocaleTimeString()}
       </Text>
     </View>
   );
