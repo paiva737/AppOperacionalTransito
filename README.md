@@ -1,6 +1,7 @@
 📱 Desafio Técnico – Aplicativo de Abordagens
 
 Aplicativo mobile desenvolvido em React Native + Expo para registrar abordagens, capturar fotos, salvar localização e realizar rastreamento em segundo plano.
+________________________________________
 
 🚀 Funcionalidades principais
 🔐 Login
@@ -14,6 +15,7 @@ Senha: admin123
 Armazena estado de login com Zustand.
 
 Impede acesso às telas internas sem autenticação.
+________________________________________
 
 
 📍 Rastreamento de localização (Background Location)
@@ -31,6 +33,7 @@ lastLocation
 histórico de amostras (samples)
 
 Inicia e pausa automaticamente de acordo com login/logout.
+________________________________________
 
 🚔 Registro de Abordagens
 
@@ -47,6 +50,7 @@ Localização atual (se permitida)
 Data e hora
 
 ID único
+________________________________________
 
 
 🖼 Lista de Abordagens
@@ -66,6 +70,7 @@ latitude/longitude (se existirem)
 data/hora
 
 Ao clicar na miniatura → foto abre ampliada em modal.
+________________________________________
 
 📦 Armazenamento persistente
 
@@ -76,6 +81,7 @@ Abordagens mantidas mesmo fechando o app.
 Trackers continuam funcionando após reabertura.
 
 Última localização permanece acessível.
+________________________________________
 
 🏗 Estrutura do Projeto
 src/
@@ -104,6 +110,7 @@ src/
     components/
     styles/
 
+________________________________________
 
 🛠 Tecnologias utilizadas
 
@@ -124,6 +131,7 @@ Expo Task Manager
 React Navigation
 
 Expo Router (nativo do Expo + stacks tradicionais)
+________________________________________
 
 ▶ Como executar
    1. Instalar dependências
@@ -134,6 +142,7 @@ Expo Router (nativo do Expo + stacks tradicionais)
       i
    4. Rodar no Android Emulator
       a
+________________________________________
 
 🧪 Como testar o rastreamento
 Fluxo recomendado pelo avaliador
@@ -156,10 +165,12 @@ Reabra → tracking continua ativo
 
 Faça logout → tracking é pausado automaticamente
 
+________________________________________
 
 ⚠ Observação importante sobre testes no iOS Simulator
 
 O iOS Simulator possui suporte limitado e inconsistente para rastreamento em segundo plano.
+________________________________________
 
 📌 Nos testes deste projeto, o simulador chegou a entregar atualizações reais (como visto nos prints).
 Porém, segundo a própria Apple e a comunidade:
@@ -171,6 +182,7 @@ Recomendação para testes reais:
 Android Emulator (mais estável para background)
 
 iPhone físico rodando o app via Expo Go ou build .ipa
+________________________________________
 
 🖼 Screenshots
  <img alt="Tela login" src="./assets/images/TelaLogin.png" width="100%">
@@ -179,6 +191,7 @@ iPhone físico rodando o app via Expo Go ou build .ipa
     <img alt="Galeria celular" src="./assets/images/galeria.png" width="100%">
      <img alt="Status rastreamento" src="./assets/images/rastreamento.png" width="100%">
 
+________________________________________
 
  🧩 Decisões técnicas
 
@@ -191,6 +204,7 @@ Tracking integrado ao login para atender ao enunciado e facilitar entendimento.
 Arquitetura modular seguindo padrão features-based para fácil expansão futura.
 
 Estilos isolados por tela para facilitar manutenção.
+________________________________________
 
 
 🚀 Melhorias futuras (caso o avaliador queira continuar)
@@ -207,6 +221,7 @@ Trackers com intervalos configuráveis.
 
 Exportar histórico de posições em CSV.
 
+________________________________________
 
 ✔ Conclusão
 
