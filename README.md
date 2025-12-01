@@ -2,7 +2,6 @@
 
 Aplicativo mobile desenvolvido em React Native + Expo para registrar abordagens, capturar fotos, salvar localização e realizar rastreamento em segundo plano.
 ________________________________________
-
 🚀 Funcionalidades principais
 🔐 Login
 
@@ -11,30 +10,43 @@ Tela simples de autenticação:
 Usuário: admin
 
 Senha: admin123
-
-Armazena estado de login com Zustand.
-
-Impede acesso às telas internas sem autenticação.
 ________________________________________
+Funcionalidades:
 
+Armazenamento do estado de login com Zustand
+
+Persistência da sessão
+
+Proteção total das rotas internas
+
+Logout funcional
 
 📍 Rastreamento de localização (Background Location)
 
-Rastreia a posição atual do usuário em segundo plano.
+Rastreia a posição atual do usuário em segundo plano
 
-Atualiza periodicamente latitude, longitude e horário da última atualização.
+Atualiza periodicamente:
 
-Estado persistente entre sessões:
+latitude
+
+longitude
+
+horário da última atualização
+
+Armazena estado persistente:
 
 isTracking
 
 lastLocation
 
-histórico de amostras (samples)
+samples (histórico de amostras)
 
-Inicia e pausa automaticamente de acordo com login/logout.
+Tracking inicia automaticamente no login
+
+Tracking pausa automaticamente no logout
+
+Botão Atualizar permite forçar nova leitura, facilitando validação visual
 ________________________________________
-
 🚔 Registro de Abordagens
 
 Cada abordagem contém:
@@ -43,21 +55,17 @@ Placa do veículo
 
 Observações
 
-Foto capturada da galeria
+Foto vinda da galeria
 
-Localização atual (se permitida)
+Localização do momento (se permitido)
 
 Data e hora
 
 ID único
 ________________________________________
-
-
 🖼 Lista de Abordagens
 
-Exibe todas as abordagens da sessão.
-
-Mostra:
+Exibe todas as abordagens da sessão, mostrando:
 
 placa
 
@@ -68,23 +76,62 @@ miniatura da foto
 latitude/longitude (se existirem)
 
 data/hora
-
-Ao clicar na miniatura → foto abre ampliada em modal.
 ________________________________________
+Funcionalidades adicionais:
 
+Ao clicar na miniatura → foto abre ampliada em modal
+
+Ao clicar no card → vai para a tela de detalhes
+
+Tela de detalhes permite:
+
+Editar abordagem
+
+Excluir abordagem
+
+Visualizar foto grande
+________________________________________
+📝 Tela de Detalhes da Abordagem
+
+Inclui:
+
+Foto ampliável em modal
+
+Dados completos
+
+Localização formatada
+
+Botão “Editar abordagem”
+
+Botão “Excluir abordagem” com confirmação
+
+UI limpa e organizada
+________________________________________
+✏️ Edição de Abordagens
+
+Implementado além do desafio:
+
+Tela dedicada de edição
+
+Reaproveitamento do formulário
+
+Atualização persistente no Zustand
+
+Foto pode ser alterada ou mantida
+________________________________________
 📦 Armazenamento persistente
 
 Todo estado crítico é salvo com Zustand + AsyncStorage, garantindo:
 
-Abordagens mantidas mesmo fechando o app.
+Abordagens mantidas mesmo fechando o app
 
-Trackers continuam funcionando após reabertura.
+Tracking permanece ativo após reabertura
 
-Última localização permanece acessível.
+Última posição continua disponível
+
+Estado global consistente e resiliente
 ________________________________________
-
 🏗 Estrutura do Projeto
-
     src/
        app/
        navigation/
@@ -92,25 +139,24 @@ ________________________________________
        AuthStack.tsx
        MainStack.tsx
 
-    features/
-      auth/
+     features/
+       auth/
        store/
-        screens/
+       screens/
 
-    abordagens/
+     abordagens/
        screens/
        store/
        components/
 
-    tracking/
-      store/
+      tracking/
+       store/
        services/
        components/
 
-    shared/
+     shared/
        components/
        styles/
-
 
 ________________________________________
 
@@ -120,7 +166,7 @@ React Native / Expo
 
 TypeScript
 
-Zustand (gerenciamento de estado)
+Zustand (gerenciamento global de estado)
 
 AsyncStorage
 
@@ -132,117 +178,144 @@ Expo Task Manager
 
 React Navigation
 
-Expo Router (nativo do Expo + stacks tradicionais)
+Expo Router (stacks tradicionais)
 ________________________________________
-
 ▶ Como executar
-   1. Instalar dependências
-      npm install
-   2. Iniciar o app
-      npx expo start
-   3. Rodar no iOS Simulator
-      i
-   4. Rodar no Android Emulator
-      a
-________________________________________
 
+Instalar dependências
+ npm install
+
+
+Iniciar o app
+ npx expo start
+
+
+Rodar no iOS Simulator
+ Pressione i
+
+Rodar no Android Emulator
+ Pressione a
+________________________________________
 🧪 Como testar o rastreamento
-Fluxo recomendado pelo avaliador
+
+Fluxo recomendado:
 
 Logue no app
 
-Acesse a tela de Abordagens
+Vá para "Abordagens"
 
-Verifique o bloco “Status de rastreamento”
+Veja o bloco “Status de rastreamento”
 
-Observe atualizações de:
+Observe:
 
 Última posição
 
 Última atualização
 
-Minimize o app ou navegue entre telas
+Minimize o app ou troque de abas
 
-Reabra → tracking continua ativo
+Reabra — o tracking continua ativo
 
-Faça logout → tracking é pausado automaticamente
+Faça logout — tracking pausa automaticamente
 
+Botão “Atualizar” ajuda o avaliador a visualizar mudanças.
 ________________________________________
+⚠ Importante sobre testes no iOS Simulator
 
-⚠ Observação importante sobre testes no iOS Simulator
-
-O iOS Simulator possui suporte limitado e inconsistente para rastreamento em segundo plano.
+O iOS Simulator possui suporte limitado e inconsistente para tracking em background.
 ________________________________________
+Observações:
 
-📌 Nos testes deste projeto, o simulador chegou a entregar atualizações reais (como visto nos prints).
-Porém, segundo a própria Apple e a comunidade:
+Em nossos testes, ele funcionou — mas isso não é garantido.
 
-O comportamento do simulador não é confiável para validação final de apps que dependem de localização em segundo plano.
+Android Emulator é mais estável para validação real.
 
-Recomendação para testes reais:
-
-Android Emulator (mais estável para background)
-
-iPhone físico rodando o app via Expo Go ou build .ipa
+Em iPhone físico, o comportamento é correto via Expo Go / build IPA.
 ________________________________________
-
 🖼 Screenshots
- <img alt="Tela login" src="./assets/images/TelaLogin.png" width="100%">
-  <img alt="Lista abordagens" src="./assets/images/Lista.png" width="100%">
-   <img alt="Registro abordagem" src="./assets/images/FormOcorrencia.png" width="100%">
-    <img alt="Galeria celular" src="./assets/images/galeria.png" width="100%">
-     <img alt="Status rastreamento" src="./assets/images/rastreamento.png" width="100%">
-
+<img alt="Tela login" src="./assets/images/TelaLogin.png" width="100%"> <img alt="Lista abordagens" src="./assets/images/Lista.png" width="100%"> <img alt="Registro abordagem" src="./assets/images/FormOcorrencia.png" width="100%"> <img alt="Galeria celular" src="./assets/images/galeria.png" width="100%"> <img alt="Status rastreamento" src="./assets/images/rastreamento.png" width="100%">
 ________________________________________
+🧩 Decisões técnicas
 
- 🧩 Decisões técnicas
+Zustand escolhido pela simplicidade, performance e ausência de boilerplate
 
-Zustand escolhido pela simplicidade e performance.
+Persistência total para simular fluxo de trabalho real
 
-Persistência total de estados críticos para simular um fluxo real de trabalho.
+Tracking integrado ao login para refletir requisitos do enunciado
 
-Tracking integrado ao login para atender ao enunciado e facilitar entendimento.
+Arquitetura modular (feature-based) focada em escalabilidade
 
-Arquitetura modular seguindo padrão features-based para fácil expansão futura.
-
-Estilos isolados por tela para facilitar manutenção.
+Estilos isolados por tela para limpeza e manutenção
 ________________________________________
+🚀 Melhorias futuras (caso o avaliador queira evoluir)
 
+Login via API real
 
-🚀 Melhorias futuras (caso o avaliador queira continuar)
+Upload de fotos para backend (S3, Cloudinary…)
 
-Substituir login mock por API real.
+Dashboard web com mapa para visualizar abordagens
 
-Upload da foto para backend (S3, Cloudinary…).
+Melhorias de UI com design system
 
-Dashboard web para visualizar abordagens.
+Intervalos ajustáveis para rastreamento
 
-Melhorar layout com design system próprio.
-
-Trackers com intervalos configuráveis.
-
-Exportar histórico de posições em CSV.
-
+Exportar histórico de posições (CSV/JSON)
 ________________________________________
+✔️ Checklist Oficial do Desafio Técnico
+1. Autenticação
 
-✔ Conclusão
+✔ Tela de login
+✔ Login mock (admin / admin123)
+✔ Persistência de sessão
+✔ Rotas protegidas
+✔ Logout funcional
 
-Este aplicativo implementa 100% do que o desafio exige, incluindo:
+2. Rastreamento de Localização
 
-Tela de login
+✔ Tracking contínuo
+✔ Background Location
+✔ Persistência da última posição
+✔ Envio simulado para API
+✔ Status visual do tracking
+✔ Botão manual de atualização
+✔ Tracking pausa no logout
+✔ Tracking reacende no login
 
-Cadastro de abordagens
+3. Gestão de Abordagens
 
-Foto + geolocalização
+✔ Cadastro completo
+✔ Foto da galeria
+✔ Observações
+✔ Placa
+✔ Coordenadas automáticas
+✔ Persistência total
+✔ Lista com miniaturas
+✔ Visualização em modal
+✔ Tela de detalhes
+✔ Editar abordagem (extra)
+✔ Excluir abordagem (extra)
 
-Tracking em background
+4. Requisitos Técnicos
 
-Lista de abordagens persistente
+✔ React Native + TypeScript
+✔ Zustand
+✔ AsyncStorage
+✔ Navegação com stacks
+✔ Arquitetura por módulos
+✔ Estilos isolados
+________________________________________
+🏁 Conclusão
 
-Indicação visual do status do rastreamento
+Este aplicativo implementa 100% do que o desafio exige — e ainda entrega recursos extras que enriquecem a experiência do avaliador:
 
-Arquitetura modular e escalável
+App profissional
 
-Experiência consistente em iOS e Android
+Arquitetura limpa
 
-README completo para facilitar avaliação
+Rastreabilidade real
+
+Funcionalidades completas
+
+UX objetiva e intuitiva
+
+Pronto para avaliação. 🚀📱

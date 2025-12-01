@@ -2,33 +2,43 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#eef2ff',
-    borderRadius: 10,
-    padding: 12,
+    backgroundColor: '#f3f4f6',
+    padding: 16,
+    borderRadius: 12,
     marginBottom: 16,
   },
+  headerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
   title: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '600',
-    marginBottom: 4,
-    color: '#3730a3',
+    color: '#111827',
   },
-  statusText: {
-    fontSize: 13,
-    color: '#1f2937',
+  refreshText: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#2563eb',
   },
-  statusInactive: {
-    fontSize: 13,
-    color: '#6b7280',
-  },
-  coordText: {
-    fontSize: 12,
-    color: '#4b5563',
+  infoBox: {
     marginTop: 4,
   },
-  timestampText: {
-    fontSize: 12,
-    color: '#6b7280',
-    marginTop: 2,
+  activeText: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#065f46',
+  },
+  inactiveText: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#991b1b',
+  },
+  subText: {
+    fontSize: 13,
+    marginTop: 4,
+    color: '#374151',
   },
 });

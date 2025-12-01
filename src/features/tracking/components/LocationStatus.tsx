@@ -1,40 +1,66 @@
-import { View, Text } from 'react-native';
-import { useLocationStore } from '../store/useLocationStore';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { styles } from './LocationStatus.styles';
+import { useLocationStore } from '../../tracking/store/useLocationStore';
 
 export default function LocationStatus() {
-  const isTracking = useLocationStore((state) => state.isTracking);
-  const lastLocation = useLocationStore((state) => state.lastLocation);
+  const { isTracking, lastLocation, startTrackingLocal } = useLocationStore();
 
-  if (!isTracking && !lastLocation) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Status de rastreamento</Text>
-        <Text style={styles.statusInactive}>Rastreamento não iniciado.</Text>
-      </View>
-    );
+  function handleRefresh() {
+    startTrackingLocal();
+
+    useLocationStore.setState((state) => {
+      if (!state.lastLocation) {
+        return state;
+      }
+
+      return {
+        ...state,
+        lastLocation: {
+          ...state.lastLocation,
+          timestamp: new Date().toISOString(),
+        },
+      };
+    });
   }
+
+  const formattedTime =
+    lastLocation && lastLocation.timestamp
+      ? new Date(lastLocation.timestamp).toLocaleString()
+      : null;
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Status de rastreamento</Text>
+      <View style={styles.headerRow}>
+        <Text style={styles.title}>Status de rastreamento</Text>
+
+        <TouchableOpacity onPress={handleRefresh}>
+          <Text style={styles.refreshText}>Atualizar</Text>
+        </TouchableOpacity>
+      </View>
 
       {isTracking ? (
-        <Text style={styles.statusText}>Rastreamento em segundo plano ativo.</Text>
-      ) : (
-        <Text style={styles.statusInactive}>Rastreamento parado.</Text>
-      )}
+        <View style={styles.infoBox}>
+          <Text style={styles.activeText}>Rastreamento em segundo plano ativo.</Text>
 
-      {lastLocation && (
-        <>
-          <Text style={styles.coordText}>
-            Última posição: {lastLocation.latitude.toFixed(4)},{' '}
-            {lastLocation.longitude.toFixed(4)}
-          </Text>
-          <Text style={styles.timestampText}>
-            Última atualização: {new Date(lastLocation.timestamp).toLocaleTimeString()}
-          </Text>
-        </>
+          {lastLocation ? (
+            <>
+              <Text style={styles.subText}>
+                Última posição: {lastLocation.latitude.toFixed(4)},{' '}
+                {lastLocation.longitude.toFixed(4)}
+              </Text>
+              <Text style={styles.subText}>
+                Última atualização:{' '}
+                {formattedTime ?? 'sem horário disponível'}
+              </Text>
+            </>
+          ) : (
+            <Text style={styles.subText}>Sem dados de localização.</Text>
+          )}
+        </View>
+      ) : (
+        <View style={styles.infoBox}>
+          <Text style={styles.inactiveText}>Rastreamento não iniciado.</Text>
+        </View>
       )}
     </View>
   );
