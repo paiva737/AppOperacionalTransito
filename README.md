@@ -110,6 +110,7 @@ src/
     components/
     styles/
 
+
 ________________________________________
 
 🛠 Tecnologias utilizadas
