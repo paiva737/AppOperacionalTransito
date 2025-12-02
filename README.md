@@ -229,7 +229,7 @@ ________________________________________
 
 O iOS Simulator possui suporte limitado e inconsistente para tracking em background.
 
-Em nossos testes, ele funcionou — mas isso não é garantido.
+Em nossos testes, ele funcionou,mas isso não é garantido.
 
 Android Emulator é mais estável para validação real.
 
@@ -313,7 +313,7 @@ ________________________________________
 ________________________________________
 🏁 Conclusão
 
-Este aplicativo implementa 100% do que o desafio exige — e ainda entrega recursos extras que enriquecem a experiência do avaliador:
+Este aplicativo implementa 100% do que o desafio exige, e ainda entrega recursos extras que enriquecem a experiência do avaliador:
 
 App profissional
 
